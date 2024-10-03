@@ -1,6 +1,4 @@
 using System;
-using JetBrains.Annotations;
-using UnityEditor.SceneManagement;
 using UnityEngine;
 [System.Serializable]
     public class ItemDetails{

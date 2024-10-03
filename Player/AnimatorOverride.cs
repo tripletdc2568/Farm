@@ -33,17 +33,33 @@ public class AnimatorOverride : MonoBehaviour
         EventHandler.ItemSelectedEvent -= OnItemSelectedEvent;
 
     } 
-    private void OnItemSelectedEvent(ItemDetails itemDetailsdetails, bool isSelected)
+    private void OnItemSelectedEvent(ItemDetails itemDetails, bool isSelected)
     {
         //WORKFLOW:不同的工具返回不同的动画
-        PartType currentType = itemDetailsdetails.itemType switch{
+        PartType currentType = itemDetails.itemType switch{
             ItemType.seed => PartType.Carry,
             ItemType.Commodity =>PartType.Carry,
             _ => PartType.None
         };
+        
+        if(isSelected == false){
+            currentType = PartType.None;
+            holdItem.enabled = false;
+        }else {
+            if(currentType == PartType.Carry){
+                holdItem.sprite = itemDetails.itemOnWorldSprite;
+                holdItem.enabled = true;
+            }
+            
+        }
+        SwitchAnimator(currentType);
     }
 
     private void SwitchAnimator(PartType partType){
-        
+        foreach(var item in animatorTypes){
+            if(item.partType == partType){
+                animatorNameDict[item.partName.ToString()].runtimeAnimatorController = item.animatorOverrideController;
+            }
+        }
     }
 }
