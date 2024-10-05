@@ -69,6 +69,8 @@ public class AnimatorOverride : MonoBehaviour
             if(currentType == PartType.Carry){
                 holdItem.sprite = itemDetails.itemOnWorldSprite; // 将精灵图设置为物品对应的图像
                 holdItem.enabled = true;// 显示手中的物品
+            }else{
+                holdItem.enabled = false;
             }
             
         }
